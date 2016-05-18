@@ -7,7 +7,7 @@ To run a website server: "python myserver.py"
   
 "myserver.py" is the website server  
 
-"templates" contians HTML code  
+"templates" contains HTML code  
 
 "uploads" stores the uploaded images from users  
 
