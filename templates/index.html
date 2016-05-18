@@ -1,0 +1,92 @@
+<!doctype html>
+<head>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+img {
+   max-width: 40%;
+   height: auto;
+}
+</style>
+</head>
+
+<body>
+<title>E6895 Project</title>
+<img src="http://portal.seas.columbia.edu/seas/logos/NewEngineeringDkBlue.png" alt="Columbia" style="width:40%">
+<h3>Welcome!</h3>
+<h3>E6895 Project: Image Classification As A Cloud Service</h3>
+<p>Team Members: Shanqi Lu(sl4017), Chenxi Rao(cr2832) </p>
+
+
+<form action="{{ url_for('index') }}" method="POST">
+
+<input type="submit" name="subject" value="Upload an image">
+<input type="submit" name="subject" value="Search images based on tags">
+
+</form>
+
+
+
+{% if upload_an_image %}
+</p>
+</p>
+<form action="upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="file"><br /><br />
+  <input type="submit" name="submit" value="Upload">
+</form>
+{% endif %}
+
+{% if search_an_image %}
+</p>
+</p>
+<p>Enter a tag</p>
+<form action="{{ url_for('index') }}" method="POST">
+    <dt><input type="text" name="searched_tag">
+    <dt><input type="submit" name="subject" value="start_search">
+</form>
+{% endif %}
+
+
+{% if s_filenames %}
+
+{% for s_filename in s_filenames %}
+<img src="{{s_filename}}",style="width:20%"/>
+{% endfor %}
+
+{% endif %}<!-- end s_filenames -->
+
+{% if messages %}
+{{messages}}
+{% endif %}
+
+{% if filename %}
+</p>
+</p>
+<p>You have uploaded an image!</p>
+{{filename}}
+</p>
+<img src="{{filename}}"/>
+
+<table style="width:40%">
+  <caption>Classifications</caption>
+  <tr>
+    <th>Tags</th>
+    <th>Probabilities</th>
+  </tr>
+  {% for p_and_tags in p_and_tags %}
+  <tr>
+    <td>{{p_and_tags.1}}</td>
+    <td>{{p_and_tags.0}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endif %}
+
+
